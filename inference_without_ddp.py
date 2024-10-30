@@ -44,7 +44,6 @@ os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 def parse_option():
     parser = argparse.ArgumentParser('Swin Transformer training and evaluation script', add_help=False)
     parser.add_argument('--cfg', type=str, metavar="FILE", help='path to config file',
-                        # default='./configs/base.yaml')
                         default='./configs/dynamic.yaml')
     parser.add_argument(
         "--opts",
@@ -64,7 +63,6 @@ def parse_option():
     parser.add_argument('--pretrained',
                         help='pretrained weight from checkpoint, could be imagenet22k pretrained weight')
     parser.add_argument('--resume', help='resume from checkpoint',
-                        # default='./output/swinv2_base_patch4_window16_256/swin_base_v2_g/ckpt_epoch_30.pth')
                         default='./output/swinv2_base_patch4_window16_256/ca_ft_baseline/ckpt_epoch_9.pth')
     parser.add_argument('--accumulation-steps', type=int, help="gradient accumulation steps")
     parser.add_argument('--use-checkpoint', action='store_true',
@@ -132,18 +130,14 @@ def build_transform(is_train, config):
 
 class_labels = ['normal', 'benign', 'tumor']
 
-def make_dataset(path, is_train=True):
+def make_dataset(path):
     imgs = []
     for i in range(len(class_labels)):
-        if i == 0:
-            continue
         img_dir_path = os.path.join(path, class_labels[i])
         img_name = os.listdir(img_dir_path)
         for name in img_name:
             img_path = os.path.join(img_dir_path, name)
             local_path = img_path.replace('global', 'local_sam2')
-            # local_path = img_path.replace('global', 'maskrcnn')
-            # local_path = img_path.replace('global', 'unet')
             imgs.append((img_path, local_path, i, name))
 
     return imgs
@@ -241,10 +235,8 @@ def inference(config, data_loader, model):
         if isinstance(output, list):
             output = output[-1]
 
-        # output = adjust_logits_with_temperature(output, 0.3)
         # Apply softmax to get probabilities for each class
         output_probs = F.softmax(output, dim=1)
-        # output_probs = output
 
         # Store the scores (probabilities)
         all_scores.extend(output_probs.cpu().numpy())
@@ -256,7 +248,6 @@ def inference(config, data_loader, model):
     if config.RETURN_ATTN:
         for layer_idx in range(num_layers):
             attn_array = np.concatenate(all_attns[layer_idx::num_layers], axis=0)
-            # attn_array = np.array(all_attns[layer_idx])  # 转换为 NumPy 数组
             for i, name in enumerate(all_names):
                 np.save(os.path.join(attn_save_path, f"{name}_attn_layer{layer_idx}.npy"), attn_array[i])
 
@@ -269,23 +260,6 @@ def inference(config, data_loader, model):
                 np.save(os.path.join(feats_save_path, f"{name}_layer{layer_idx}_after.npy"), feats_after[i])
 
         print(f"Features saved to {feats_save_path}")
-
-    classes = {
-        0: 'normal',
-        1: 'benign',
-        2: 'tumor'
-    }
-    preds_save = [classes[x] for x in all_predictions]
-    targets_save = [classes[x] for x in all_targets]
-    results = pd.DataFrame({'names': all_names, 'preds': preds_save, 'targets': targets_save})
-    # for segment
-    # results.to_csv(os.path.join(r"/home/pro/SAM_adapter/MedSAM2/work_dir/MedSAM2-Tiny-prompt-frozen/outputs",
-    #                             "results_cls.csv"), index=False, header=True)
-    # results.to_csv(os.path.join(r"/home/pro/SAM/exp4", "results_cls.csv"), index=False, header=True)
-    # results.to_csv(os.path.join(r"/home/pro/current/Pytorch-UNet", "results_cls.csv"), index=False, header=True)
-    # for i in range(3):
-    #     results[f'class_{i}_score'] = [output_scores[i] for output_scores in all_scores]
-    # results.to_csv(os.path.join(r"/home/pro/DLGNet/roc/ours/", "results.csv"), index=False, header=True)
 
     target_names = ['Normal', 'Benign', 'Tumor']
     # Compute confusion matrix
