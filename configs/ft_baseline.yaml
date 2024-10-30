@@ -1,0 +1,34 @@
+DATA:
+  IMG_SIZE: 256
+  DATASET: lpc
+  DATA_PATH: /home/pro/datasets/dataset1/global/train
+  
+MODEL:
+  TYPE: swinv2
+  NAME: swinv2_base_patch4_window16_256
+  DROP_PATH_RATE: 0.2
+  SWINV2:
+    EMBED_DIM: 128
+    DEPTHS: [ 2, 2, 18, 2 ]
+    NUM_HEADS: [ 4, 8, 16, 32 ]
+    WINDOW_SIZE: 16
+  LOSS_WEIGHT: [0.001, 0.002, 0.004, 0.008, 1.0]
+  HEAD_DROP_RATE: 0.2
+  DEEP_SUPERVISION: True
+  FINE_TUNE: True
+  DYNAMIC: True
+  
+TRAIN:
+  EPOCHS: 10 
+  WARMUP_EPOCHS: 2 
+  WEIGHT_DECAY: 1e-8 
+  BASE_LR: 3e-5
+  WARMUP_LR: 3e-8
+  MIN_LR: 3e-7
+  ACCUMULATION_STEPS: 4 
+  
+AUG:
+  MIXUP: 0.0
+  CUTMIX: 0.0
+
+SAVE_FREQ: 1 
