@@ -12,6 +12,7 @@ To fine-tune SAM2 tailored for your tasks, we recommend following the guidelines
 
 Organize your datasets in the following manner:
 
+```markdown
 datasets/
 ├── dataset1/
 │   ├── global/
@@ -42,7 +43,7 @@ datasets/
 │           └── tumor/
 ├── dataset6/
 │   └── ...
-
+```
 
 ## Training
 
