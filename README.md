@@ -11,7 +11,7 @@ The SAM-Swin mainly consists of four pivotal components: SAM2-guided lesion loca
 - We propose MS-LAEM designed to adaptively enhance the learning of nuanced **complementary features** across various scales, improving the quality of feature extraction and representation.
 - We introduce the multi-scale CAG loss, a novel approach that employs targeted supervision to facilitate the extraction of **class-specific features** within the model.
 
-![architecture](.\architecture.png)
+![architecture](architecture.png)
 
 
 ## Fine-tune SAM2
