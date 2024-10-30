@@ -3,6 +3,17 @@
 This repo is the official implementation of [SAM-Swin: SAM-Driven Dual-Swin Transformers with Adaptive Lesion Enhancement for Laryngo-Pharyngeal Tumor Detection](https://arxiv.org/abs/2410.21813).
 
 
+## Introduction
+
+The SAM-Swin mainly consists of four pivotal components: SAM2-guided lesion location (**SAM2-GLLM**), whole image branch (**WIB**), lesion region branch (**LRB**), and multi-scale lesion-aware enhancement module (**MS-LEAM**).
+
+- By leveraging the advanced object segmentation capabilities of the **SAM2**, we pioneerly integrate SAM2 into the SAM-Swin framework, enabling SAM-Swin to achieve highly precise segmentation of the lesion region.
+- We propose MS-LAEM designed to adaptively enhance the learning of nuanced **complementary features** across various scales, improving the quality of feature extraction and representation.
+- We introduce the multi-scale CAG loss, a novel approach that employs targeted supervision to facilitate the extraction of **class-specific features** within the model.
+
+![architecture](.\architecture.png)
+
+
 ## Fine-tune SAM2
 
 To fine-tune SAM2 tailored for your tasks, we recommend following the guidelines provided in the original repository: [MedSAM2](https://github.com/bowang-lab/MedSAM/tree/MedSAM2)
