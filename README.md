@@ -1,6 +1,6 @@
 # SAM-Swin: SAM-Driven Dual-Swin Transformers with Adaptive Lesion Enhancement for Laryngo-Pharyngeal Tumor Detection
 
-This repo is the official implementation of [SAM-Swin: SAM-Driven Dual-Swin Transformers with Adaptive Lesion Enhancement for Laryngo-Pharyngeal Tumor Detection](https://arxiv.org/abs/2410.21813).
+This repo is the official implementation of [SAM-Swin: SAM-Driven Dual-Swin Transformers with Adaptive Lesion Enhancement for Laryngo-Pharyngeal Tumor Detection](https://arxiv.org/abs/2410.21813) (MIA Major Revision).
 
 
 ## Introduction
@@ -90,13 +90,10 @@ The code of SAM-Swin is built upon [MedSAM2](https://github.com/bowang-lab/MedSA
 ## Citing SAM-Swin
 
 ```
-@misc{wei2024samswinsamdrivendualswintransformers,
-      title={SAM-Swin: SAM-Driven Dual-Swin Transformers with Adaptive Lesion Enhancement for Laryngo-Pharyngeal Tumor Detection}, 
-      author={Jia Wei and Yun Li and Xiaomao Fan and Wenjun Ma and Meiyu Qiu and Hongyu Chen and Wenbin Lei},
-      year={2024},
-      eprint={2410.21813},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV},
-      url={https://arxiv.org/abs/2410.21813}, 
+@article{wei2024sam,
+  title={Sam-swin: Sam-driven dual-swin transformers with adaptive lesion enhancement for laryngo-pharyngeal tumor detection},
+  author={Wei, Jia and Li, Yun and Fan, Xiaomao and Ma, Wenjun and Qiu, Meiyu and Chen, Hongyu and Lei, Wenbin},
+  journal={arXiv preprint arXiv:2410.21813},
+  year={2024}
 }
 ```
