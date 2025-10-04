@@ -60,7 +60,7 @@ def make_dataset(path):
 
 class LPCDataset(data.Dataset):
     def __init__(self, root, transform=None, is_train=True):
-        self.imgs = make_dataset(root, is_train)
+        self.imgs = make_dataset(root)
         self.transform = transform
 
     def __getitem__(self, index):
